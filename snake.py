@@ -86,9 +86,9 @@ while True:
         h.goto(0, 0)
         h.direction = "Stop"
         f.goto(random.randint(-270, 270), random.randint(-270, 270))
-        for seg in seg:
-            seg.goto(1000, 1000)
-        seg.clear()
+        for segment in seg:
+            segment.goto(1000, 1000)
+        seg = []  # Reset segments list
         s = 0
         d = 0.1
         p.clear()
@@ -125,15 +125,17 @@ while True:
     move()
 
     # Checking for self-collision
-    for segment in seg:
+    for i, segment in enumerate(seg):
+        if i == 0:  # Skip collision check for first segment
+            continue 
         if segment.distance(h) < 20:
             time.sleep(1)
             h.goto(0, 0)
             h.direction = "Stop"
             f.goto(random.randint(-270, 270), random.randint(-270, 270))
-            for seg in seg:
-                seg.goto(1000, 1000)
-            seg.clear()
+            for segment in seg:
+                segment.goto(1000, 1000)
+            seg = []  # Reset segments list
             s = 0
             d = 0.1
             p.clear()
